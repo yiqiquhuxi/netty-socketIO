@@ -8,25 +8,27 @@
 
 # 项目结构：
 ```
+.
 └── src
-├── main
-│   ├── java
-│   │   └── com
-│   │       └── example
-│   │           └── nettysocketiodemo
-│   │               ├── conf
-│   │               ├── controller
-│   │               ├── listener
-│   │               └── service
-│   └── resources
-│       ├── static
-│       │   └── demo
-│       └── templates
-└── test
-└── java
-└── com
-└── example
-└── nettysocketiodemo
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── example
+    │   │           └── nettysocketiodemo
+    │   │               ├── conf
+    │   │               ├── controller
+    │   │               ├── listener
+    │   │               └── service
+    │   └── resources
+    │       ├── static
+    │       │   └── demo
+    │       └── templates
+    └── test
+        └── java
+            └── com
+                └── example
+                    └── nettysocketiodemo
+
 ```
 
 # 使用步骤
