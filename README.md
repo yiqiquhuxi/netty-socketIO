@@ -36,6 +36,8 @@
 - **服务端广播客户端（选择其一）：**
   > 1. get请求：http://localhost:8006/demo/send?msg=需要群发的消息
   > 2. get请求发送mq消息：http://localhost:8006/demo/sendMq?msg=需要群发的消息
+- **查看链接数量**
+  > get请求：http://localhost:8006/demo/size
 
 
 

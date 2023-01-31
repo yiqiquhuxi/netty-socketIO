@@ -42,4 +42,12 @@ public class Controller {
     return "success";
   }
 
+
+  @GetMapping("size")
+  public <T> String size() {
+    int size = MessageEventHandler.socketIOClientMap.size();
+    return "连接数量: " + size;
+  }
+
+
 }
