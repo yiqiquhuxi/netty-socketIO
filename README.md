@@ -1,6 +1,10 @@
 # 工程简介
-项目为springboot和netty-socketIO 整合
-利用到 rabbitmq 作为发布订阅中间件，为了实现分布式部署
+本项目为tedu netty-socketIO demo项目
+> 技术栈（具体版本看pom文件）
+>1. springboot
+>2. netty-socketIO
+>3. rabbitmq (满足分布式部署问题)
+
 
 # 项目结构：
 ```
@@ -25,6 +29,11 @@
 └── nettysocketiodemo
 ```
 
+# 使用步骤
+```
+1. 打开socektIO.html 文件，建立链接 （打开多个既建立多个链接）
+2. 服务端广播消息至客户端，get请求：http://localhost:8006/demo/send?msg=需要群发的消息
+```
 
 
 # 延伸阅读
