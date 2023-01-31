@@ -35,8 +35,6 @@ public class SocketConf {
         return true;
       }
     });
-    configuration.setTransports(Transport.POLLING,Transport.WEBSOCKET);
-    configuration.setOrigin(":*:");
     final SocketIOServer server = new SocketIOServer(configuration);
     return server;
   }
