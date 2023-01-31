@@ -3,6 +3,7 @@ package com.example.nettysocketiodemo.conf;
 import com.corundumstudio.socketio.AuthorizationListener;
 import com.corundumstudio.socketio.HandshakeData;
 import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.Transport;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,8 @@ public class SocketConf {
         return true;
       }
     });
+    configuration.setTransports(Transport.POLLING,Transport.WEBSOCKET);
+    configuration.setOrigin(":*:");
     final SocketIOServer server = new SocketIOServer(configuration);
     return server;
   }
