@@ -1,6 +1,7 @@
 package com.example.nettysocketiodemo.controller;
 
 import com.example.nettysocketiodemo.service.MessageEventHandler;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,25 @@ public class Controller {
   @Autowired
   private MessageEventHandler messageEventHandler;
 
+  @Autowired
+  private RabbitTemplate rabbitTemplate;
+
   @GetMapping("send")
-  public <T> boolean send(String msg){
-    return messageEventHandler.sendMsg("get",msg);
+  public <T> boolean send(String msg) {
+    return messageEventHandler.sendMsg("get", msg);
+  }
+
+  /**
+   * 发消息至mq
+   *
+   * @param msg
+   * @param <T>
+   * @return
+   */
+  @GetMapping("sendMq")
+  public <T> String sendMq(String msg) {
+    rabbitTemplate.convertAndSend("socketIO-fanout-exchange", null, msg);
+    return "success";
   }
 
 }
