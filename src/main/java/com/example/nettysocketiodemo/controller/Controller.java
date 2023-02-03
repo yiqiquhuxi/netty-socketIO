@@ -47,7 +47,7 @@ public class Controller {
 
   @GetMapping("size")
   public <T> String size() {
-    int size = MessageEventHandler.socketIOClientMap.size();
+    int size = MessageEventHandler.set.size();
     return "连接数量: " + size;
   }
 

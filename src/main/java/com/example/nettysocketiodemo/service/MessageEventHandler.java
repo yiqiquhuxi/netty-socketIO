@@ -6,7 +6,9 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +29,12 @@ public class MessageEventHandler {
   @Autowired
   public static SocketIOServer socketIoServer;
 
-  public static ConcurrentMap<String, SocketIOClient> socketIOClientMap = new ConcurrentHashMap<>();
+  public static Set<SocketIOClient> set = new HashSet<>();
 
   @OnConnect
   public void onConnect(SocketIOClient client) {
-    String params = client.getHandshakeData().getSingleUrlParam("params");
-    log.info("{} 连接上,远程地址 {} 客户端sessionId {}", params, client.getRemoteAddress(), client.getSessionId());
-    socketIOClientMap.put(params, client);
-    int i = 1;
-
+    set.add(client);
+    log.info("{} 连接上,远程地址 {} 客户端sessionId {}", client.getSessionId(), client.getRemoteAddress(), client.getSessionId());
   }
 
   /**
@@ -45,9 +44,8 @@ public class MessageEventHandler {
    */
   @OnDisconnect
   public void onDisconnect(SocketIOClient client) {
-    String params = client.getHandshakeData().getSingleUrlParam("params");
-    log.info("{} 已断开", params);
-    socketIOClientMap.remove(params);
+    log.info("{} 已断开", client.getSessionId());
+    set.remove(client);
   }
 
   /**
@@ -59,13 +57,12 @@ public class MessageEventHandler {
    */
   @OnEvent(value = "messageevent")
   public void onEvent(SocketIOClient client, AckRequest request, String data) {
-    String params = client.getHandshakeData().getSingleUrlParam("params");
-    log.info("{} 发来消息 {}", params, data);
+    log.info("{} 发来消息 {}", client.getSessionId(), data);
   }
 
   // 广播消息
   public boolean sendMsg(String event, String message) {
-    socketIOClientMap.values().parallelStream()
+    set.parallelStream()
         .filter(Objects::nonNull)
         .forEach((a) -> {
           a.sendEvent(event, message);
