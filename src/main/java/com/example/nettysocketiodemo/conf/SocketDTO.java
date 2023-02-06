@@ -33,6 +33,10 @@ public class SocketDTO implements Serializable {
    */
   private Integer port;
   /**
+   *  socket连接数大小（如只监听一个端口boss线程组为1即可）
+   */
+  private Integer bossCount;
+  /**
    * 连接数大小
    */
   private Integer workCount;
