@@ -39,5 +39,20 @@ public class RabbitConfig {
 
 
 
+  @Bean
+  public Queue queue2(){
+    return QueueBuilder.durable("4-topic-socket-queue").build();
+  }
+
+
+  @Bean
+  public Binding bindingBB(){
+    return BindingBuilder.bind(queue2()).to(fanoutExchange());
+  }
+
+
+
+
+
 
 }
